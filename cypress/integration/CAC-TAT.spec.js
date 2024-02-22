@@ -8,6 +8,17 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
   
     })
+
+    it('preenche os campos obrigatorios e envia o formulario', function() {
+    cy.get('#firstName').type('Douglas')
+    cy.get('#lastName').type('Giatti')
+    cy.get('#email').type('douglas_giatti@hotmail.com')
+    cy.get('#open-text-area').type('Teste')
+    cy.contains('button', 'Enviar').click()
+
+    cy.get('.success').should('be.visible')
+    })
+    
     it('Este texto ira exibir uma mensagem de erro ao submeter o formulario com um email com formatacao invalida', function() {
         cy.get('#firstName').type('Douglas')
         cy.get('#lastName').type('Giatti')
@@ -26,7 +37,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         it('exibe mensagem de erro quando o telefone se torna obrigatorio mas nao e preenchido antes do envio do formmulario', function() {
         cy.get('#firstName').type('Douglas')
         cy.get('#lastName').type('Giatti')
-        cy.get('#email').type('douglas_giatti@hotmail,com')
+        cy.get('#email').type('douglas_giatti@hotmail.com')
         cy.get('#phone-checkbox').check()
         cy.get('#open-text-area').type('Teste')
         cy.contains('button', 'Enviar').click()
